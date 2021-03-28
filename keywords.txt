@@ -1,0 +1,13 @@
+Motor	KEYWORD1
+read	KEYWORD2
+reset	KEYWORD2
+setReadings	KEYWORD2
+getReadings	KEYWORD2
+backward	KEYWORD2
+stop	KEYWORD2
+forward	KEYWORD2
+setPWM	KEYWORD2
+setEncoder	KEYWORD2
+resolution	LITERAL1
+pwm	LITERAL1
+pin	LITERAL1
