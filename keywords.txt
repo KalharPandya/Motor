@@ -7,7 +7,9 @@ backward	KEYWORD2
 stop	KEYWORD2
 forward	KEYWORD2
 setPWM	KEYWORD2
+invertDirection	KEYWORD2
 setEncoder	KEYWORD2
 resolution	LITERAL1
+direction_offset	LITERAL1
 pwm	LITERAL1
 pin	LITERAL1

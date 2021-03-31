@@ -15,8 +15,11 @@ void Motor::setEncoder(UniversalEncoder *enc){
 void Motor::setEncoder(int en1,int  en2,int dir){
     Motor::encoder->init(en1, en2, dir);
 }
-
+void Motor::invertDirection(int direction_offset){
+    Motor::direction_offset = direction_offset;
+}
 void Motor::setPWM(int pwm){
+    pwm*=Motor::direction_offset;
     if(pwm > 0){
         forward();
         Motor::pwm->write(pwm);
