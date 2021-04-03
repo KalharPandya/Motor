@@ -17,6 +17,7 @@ void Motor::setEncoder(int en1,int  en2,int dir){
 }
 void Motor::invertDirection(int direction_offset){
     Motor::direction_offset = direction_offset;
+    Motor::encoder-> directional_offset=-(direction_offset);
 }
 void Motor::setPWM(int pwm){
     pwm*=Motor::direction_offset;
