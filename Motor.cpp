@@ -1,12 +1,12 @@
 #include "Motor.h"
 
 Motor::Motor(int pwm, int dir1,int dir2){
-    // Serial.printf("HELLO\n");
-    // Motor::dir1 = dir1;
-    // Motor::dir2 = dir2;
-    // Motor::pwm->attach(pwm);
-    // pinMode(dir1,OUTPUT);
-    // pinMode(dir2,OUTPUT);
+    randomSeed(10);
+    Motor::dir1 = dir1;
+    Motor::dir2 = dir2;
+    Motor::pwm->attach(pwm);
+    pinMode(dir1,OUTPUT);
+    pinMode(dir2,OUTPUT);
 }
 
 void Motor::setEncoder(UniversalEncoder *enc){
@@ -25,9 +25,11 @@ void Motor::invertDirection(int direction_offset){
 }
 
 void Motor::setPWM(int pwm){
-    // getVirtualReadings();
+    getVirtualReadings();
     pwm*=Motor::direction_offset;
     Motor::pwm->write(pwm);
+    errorPWM = erroredPWM(pwm);
+    // Serial.println(errorPWM);
     if(pwm > 0){
         forward();
     }
@@ -73,9 +75,14 @@ void Motor::reset(){
     Motor::encoder->reset();
     Motor::stop();
 }
-
+int Motor::erroredPWM(int pwm){
+    int max = pwm * Motor::virtualError;
+    int randomNumber =random(-100,100); 
+    int error = map(randomNumber,-100,100,-max, max);
+    return pwm + error;
+}
 long Motor::getVirtualReadings(){
-    Motor::readings += 0.025 * (millis() - Motor::prevTime) * Motor::pwm->read();
+    Motor::readings += 0.025 * (millis() - Motor::prevTime) * Motor::errorPWM;
     Motor::prevTime = millis();
 
     return Motor::readings;
