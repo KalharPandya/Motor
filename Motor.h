@@ -3,8 +3,11 @@
 #include<Arduino.h>
 #include<UniversalPWM.h>
 #include<UniversalEncoder.h>
+
 class Motor{
     public:
+        bool virtualMode = true;
+        long prevTime = 0, readings = 0;
         int dir1, dir2, direction_offset = 1;
         UniversalEncoder *encoder = new UniversalEncoder();
         UniversalPWM *pwm = new UniversalPWM();
@@ -20,6 +23,7 @@ class Motor{
 		long getReadings();
 		void setReadings(long readings);
 		void reset();
+        long getVirtualReadings();
 };
 
 #endif
